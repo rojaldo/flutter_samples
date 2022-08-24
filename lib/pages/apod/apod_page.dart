@@ -16,8 +16,8 @@ class _ApodPageState extends State<ApodPage> {
   Apod _apod = Apod();
 
   Future<http.Response> _fetchApod() {
-    return http.get(Uri.parse(
-        'https://api.nasa.gov/planetary/apod?api_key=tqz634Z1x0LiJzjbhSyUoExrZaGKLM0MG1VnROR6'));
+    return http.get(
+        Uri.parse('https://api.nasa.gov/planetary/apod?api_key=WRONG_KEY'));
   }
 
   void _getApod() {
