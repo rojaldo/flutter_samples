@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_samples/calculator/calculator_page.dart';
+import 'package:flutter_samples/models/my_hero.dart';
 
 class HeroesPage extends StatefulWidget {
   const HeroesPage({Key? key}) : super(key: key);
@@ -9,48 +9,83 @@ class HeroesPage extends StatefulWidget {
 }
 
 class _HeroesPageState extends State<HeroesPage> {
-  String _message = '';
-  late TextEditingController _controller;
-  List<String> _heroes = ['Superman', 'Spiderman', 'Batman'];
-  Widget _heroesList = ListView();
+  late TextEditingController _nameController;
+  late TextEditingController _alterEgoController;
+  final List<MyHero> _heroes = [
+    MyHero('Superman', 'Clark Kent'),
+    MyHero('Batman', 'Bruce Wayne')
+  ];
+  ListView _heroesList = ListView();
+  ElevatedButton _newHeroButton = const ElevatedButton(
+    onPressed: null,
+    child: Text('Add Hero'),
+  );
+  bool _buttonDisabled = true;
 
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController();
-    _heroesList = ListView.builder(
+    _heroesList = _getList();
+    _nameController = TextEditingController();
+    _alterEgoController = TextEditingController();
+  }
+
+  ListView _getList() {
+    return ListView.builder(
       shrinkWrap: true,
       itemCount: _heroes.length,
       itemBuilder: (context, index) {
-        return ListTile(
-          title: Text(_heroes[index]),
-        );
+        return Column(children: [
+          Row(
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  Text(_heroes[index].name,
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold)),
+                  Text(_heroes[index].alterEgo,
+                      style: const TextStyle(fontSize: 15)),
+                ],
+              ),
+            ],
+          ),
+          const Divider(
+            color: Colors.grey,
+            thickness: 1,
+          ),
+        ]);
       },
     );
   }
 
-  void _setMessage(String s) {
-    setState(() {
-      _message = s;
-      _controller.text = s;
-    });
+  void _addHero() {
+    _heroes.add(MyHero(_nameController.text, _alterEgoController.text));
+    _heroesList = _getList();
+    _nameController.clear();
+    _alterEgoController.clear();
+    setState(() {});
   }
 
-  void _addHero() {
-    _heroes.add(_controller.text);
-    // update _heroesList
-    setState(() {
-      _heroesList = ListView.builder(
-        shrinkWrap: true,
-        itemCount: _heroes.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(_heroes[index]),
-          );
-        },
+  void _onNameChanged(String s) {
+    if (s.isEmpty) {
+      _newHeroButton = const ElevatedButton(
+        onPressed: null,
+        child: Text('Add Hero'),
       );
-    });
-    _controller.clear();
+      if (!_buttonDisabled) {
+        _buttonDisabled = true;
+        setState(() {});
+      }
+    } else {
+      _newHeroButton = ElevatedButton(
+        onPressed: _addHero,
+        child: const Text('Add Hero'),
+      );
+      if (_buttonDisabled) {
+        _buttonDisabled = false;
+        setState(() {});
+      }
+    }
   }
 
   @override
@@ -63,19 +98,20 @@ class _HeroesPageState extends State<HeroesPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              _message,
+            TextField(
+              controller: _nameController,
+              decoration: const InputDecoration(
+                labelText: 'Hero name*',
+              ),
+              onChanged: _onNameChanged,
             ),
             TextField(
-              controller: _controller,
+              controller: _alterEgoController,
               decoration: const InputDecoration(
-                labelText: 'Enter a hero',
+                labelText: 'Hero alter ego',
               ),
             ),
-            ElevatedButton(
-              child: const Text('Add Hero'),
-              onPressed: () => _addHero(),
-            ),
+            _newHeroButton,
             _heroesList,
           ],
         ),

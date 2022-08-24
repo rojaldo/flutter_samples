@@ -10,6 +10,7 @@ class CalculatorModel {
   int secondFigure = 0;
   String operation = '';
   num result = 0;
+
   CalculatorModel();
 
   String processNumber(int digit) {
