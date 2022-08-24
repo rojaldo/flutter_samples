@@ -13,6 +13,9 @@ class ApodPage extends StatefulWidget {
 
 class _ApodPageState extends State<ApodPage> {
   String _title = '';
+  String _explanation = '';
+  String _url = '';
+  String _date = '';
   Apod _apod = Apod();
 
   Future<http.Response> _fetchApod() {
@@ -26,7 +29,12 @@ class _ApodPageState extends State<ApodPage> {
         _apod = Apod.fromJson(jsonDecode(response.body));
         setState(() {
           _title = _apod.title;
+          _date = _apod.date;
+          _explanation = _apod.explanation;
+          _url = _apod.url;
         });
+      } else {
+        print('Error getting apod');
       }
     });
   }
@@ -45,7 +53,19 @@ class _ApodPageState extends State<ApodPage> {
         title: const Text('Apod'),
       ),
       body: Center(
-        child: Text(_title),
+        child: Card(
+          child: SizedBox(
+            child: Center(
+              child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                Text(_title,
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold)),
+                Image.network(_url),
+                Text(_explanation, style: const TextStyle(fontSize: 14)),
+              ]),
+            ),
+          ),
+        ),
       ),
     );
   }
