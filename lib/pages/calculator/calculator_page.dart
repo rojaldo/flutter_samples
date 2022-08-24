@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_samples/calculator/display_widget.dart';
-import 'package:flutter_samples/calculator/keyboard_widget.dart';
+import 'package:flutter_samples/pages/calculator/display_widget.dart';
+import 'package:flutter_samples/pages/calculator/keyboard_widget.dart';
 import 'package:flutter_samples/models/calculator_model.dart';
 
 class CalculatorPage extends StatefulWidget {

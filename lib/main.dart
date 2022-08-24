@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_samples/heroes/heroes_page.dart';
 
-import 'calculator/calculator_page.dart';
+import 'pages/apod/apod_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +17,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const HeroesPage());
+        home: const ApodPage());
   }
 }
 
