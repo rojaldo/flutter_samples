@@ -26,7 +26,7 @@ class _ApodPageState extends State<ApodPage> {
   }
 
   void _getApod([String date = '']) {
-    String key = 'Wrong_Key';
+    String key = 'WRONG_KEY';
     String url = 'https://api.nasa.gov/planetary/apod?api_key=$key';
     if (date != '') {
       url += '&date=$date';

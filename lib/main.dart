@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_samples/pages/beers/beers_page.dart';
 
 import 'pages/apod/apod_page.dart';
 
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const ApodPage());
+        home: const BeersPage());
   }
 }
 
