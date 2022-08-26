@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_samples/pages/beers/beers_page.dart';
+import 'package:flutter_samples/pages/calculator/calculator_page.dart';
+import 'package:flutter_samples/pages/heroes/heroes_page.dart';
 
 import 'pages/apod/apod_page.dart';
 
@@ -18,83 +20,101 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const BeersPage());
+        home: const MyHomePage());
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+  const MyHomePage({Key? key}) : super(key: key);
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-  String _message = '';
+  int _selectedIndex = 0;
+  String _title = 'Flutter Demo: Calculator';
 
-  void _incrementCounter(int delta) {
-    setState(() {
-      _counter += delta;
-    });
-  }
-
-  void _decrementCounter() {
-    setState(() {
-      _counter--;
-    });
-  }
-
-  void _setMessage(String message) {
-    setState(() {
-      _message = message;
-    });
+  Widget _getPage() {
+    switch (_selectedIndex) {
+      case 0:
+        return CalculatorPage();
+      case 1:
+        return HeroesPage();
+      case 2:
+        return ApodPage();
+      case 3:
+        return BeersPage();
+      default:
+        return CalculatorPage();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(_title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      body: _getPage(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => {},
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
+      drawer: Drawer(
+        child: ListView(
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+            DrawerHeader(
+              child: Text(_title,
+                  style: TextStyle(fontSize: 24, color: Colors.white)),
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
             ),
-            Text(
-              '$_counter: $_message',
-              style: Theme.of(context).textTheme.headline4,
+            ListTile(
+              title: Text('Calculator'),
+              onTap: () {
+                setState(() {
+                  _title = 'Flutter Demo: Calculator';
+                  _selectedIndex = 0;
+                });
+                Navigator.pop(context);
+              },
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                ElevatedButton(
-                  child: const Text('Increment'),
-                  onPressed: () => _incrementCounter(1),
-                ),
-                ElevatedButton(
-                  child: const Text('Decrement'),
-                  onPressed: () => _decrementCounter(),
-                ),
-                ElevatedButton(
-                  child: const Text('Hello world'),
-                  onPressed: () => _setMessage('Hello world'),
-                ),
-              ],
+            ListTile(
+              title: Text('Heroes'),
+              onTap: () {
+                setState(() {
+                  _title = 'Flutter Demo: Heroes';
+                  _selectedIndex = 1;
+                });
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text('Apod'),
+              onTap: () {
+                setState(() {
+                  _title = 'Flutter Demo: Apod';
+                  _selectedIndex = 2;
+                });
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text('Beers'),
+              onTap: () {
+                setState(() {
+                  _title = 'Flutter Demo: Beers';
+                  _selectedIndex = 3;
+                });
+                Navigator.pop(context);
+              },
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => _incrementCounter(1),
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

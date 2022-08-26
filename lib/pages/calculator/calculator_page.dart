@@ -4,9 +4,7 @@ import 'package:flutter_samples/pages/calculator/keyboard_widget.dart';
 import 'package:flutter_samples/models/calculator_model.dart';
 
 class CalculatorPage extends StatefulWidget {
-  const CalculatorPage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
+  const CalculatorPage({Key? key}) : super(key: key);
 
   @override
   State<CalculatorPage> createState() => _CalculatorPageState();
@@ -46,9 +44,6 @@ class _CalculatorPageState extends State<CalculatorPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
       body: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [

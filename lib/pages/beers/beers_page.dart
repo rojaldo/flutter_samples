@@ -30,7 +30,14 @@ class _BeersPageState extends State<BeersPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    print('initState: BeersPage');
     _getBeers();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    print('dispose: BeersPage');
   }
 
   Card _createBeerWidget(Beer beer) {
@@ -53,9 +60,6 @@ class _BeersPageState extends State<BeersPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Beers'),
-      ),
       body: SingleChildScrollView(
           child: Column(
         children: _beers.map((beer) => _createBeerWidget(beer)).toList(),

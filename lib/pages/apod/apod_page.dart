@@ -98,9 +98,6 @@ class _ApodPageState extends State<ApodPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Apod'),
-      ),
       body: SingleChildScrollView(child: _apodWidget),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
